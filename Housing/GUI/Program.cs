@@ -1,4 +1,4 @@
-﻿namespace Housing
+﻿namespace Housing.GUI
 {
     internal class Program
     {
