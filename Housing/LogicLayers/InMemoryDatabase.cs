@@ -1,12 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using Housing.Models;
 
 namespace Housing.LogicLayers
 {
-    class InMemoryDatabase
+    public class InMemoryDatabase
     {
+        public List<Student> Students { get; set; } = new();
+        public List<Admin> Admins { get; set; } = new();
+        public List<Room> Rooms { get; set; } = new();
+        public List<Application> Applications { get; set; } = new();
+
+        public InMemoryDatabase()
+        {
+            var buildingA = new Building(1, "Alpha Hall", "North Campus");
+            var buildingB = new Building(2, "Beta Hall", "South Campus");
+
+            Rooms.Add(new Room(1, "101", RoomType.Single, RoomStatus.Available, buildingA));
+            Rooms.Add(new Room(2, "102", RoomType.Shared, RoomStatus.Available, buildingA));
+            Rooms.Add(new Room(3, "201", RoomType.Single, RoomStatus.Occupied, buildingB));
+
+            Students.Add(new Student(1, "Alice", "alice@mail.com", "1234"));
+            Students.Add(new Student(2, "Bob", "bob@mail.com", "1234"));
+
+            Admins.Add(new Admin(1, "Charlie", "admin@mail.com", "admin"));
+        }
     }
 }
