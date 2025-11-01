@@ -1,13 +1,18 @@
-﻿using System.Collections.Generic;
-
-namespace Housing.Models
+﻿namespace Housing.Models
 {
     public class Student : User
     {
-        public List<Application> Applications { get; } = new();
+        public string Username { get; private set; }
+        public string Password { get; private set; }
 
-        public Student(int id, string name, string email, string password)
-            : base(id, name, email, password) { }
+        public List<Application> Applications { get; set; } = new();
+
+        public Student(int id, string name, string username, string password)
+            : base(id, name)
+        {
+            Username = username;
+            Password = password;
+        }
 
         public override string GetRole() => "Student";
     }

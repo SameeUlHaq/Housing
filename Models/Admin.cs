@@ -2,8 +2,15 @@
 {
     public class Admin : User
     {
-        public Admin(int id, string name, string email, string password)
-            : base(id, name, email, password) { }
+        public string Username { get; private set; }
+        public string Password { get; private set; }
+
+        public Admin(int id, string name, string username, string password)
+            : base(id, name)
+        {
+            Username = username;
+            Password = password;
+        }
 
         public override string GetRole() => "Admin";
     }

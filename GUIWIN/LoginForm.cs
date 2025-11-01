@@ -1,25 +1,44 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Housing.LogicLayers;
+using Housing.Models;
 
 namespace GUIWIN
 {
     public partial class LoginForm : Form
     {
-        public LoginForm()
+        private HousingService service;
+
+        public LoginForm(HousingService service)
         {
             InitializeComponent();
+            this.service = service;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void btnLogin_Click(object sender, EventArgs e)
         {
+            string username = txtUsername.Text.Trim();
+            string password = txtPassword.Text.Trim();
 
+            var user = service.Login(username, password);
+
+            if (user == null)
+            {
+                MessageBox.Show("Wrong username or password.");
+                return;
+            }
+
+            // open MainForm
+            var main = new MainForm(service, user);
+            this.Hide();
+            main.Show();
+        }
+
+        private void btnRegister_Click(object sender, EventArgs e)
+        {
+            var reg = new RegisterForm(service);
+            this.Hide();
+            reg.Show();
         }
     }
 }
