@@ -1,5 +1,5 @@
-﻿using Housing.Models;
-using Housing.LogicLayers;
+﻿using Housing.LogicLayers;
+using Housing.Models;
 using System;
 using System.Windows.Forms;
 
@@ -8,32 +8,41 @@ namespace GUIWIN
     public partial class MainForm : Form
     {
         private HousingService service;
-        private Student student;
+        private User user;
 
-        public MainForm(HousingService service, Student student)
+        public MainForm(HousingService service, User user)
         {
             InitializeComponent();
             this.service = service;
-            this.student = student;
-            lblWelcome.Text = $"Welcome, {student.Name}!";
+            this.user = user;
         }
-
 
         private void btnRooms_Click(object sender, EventArgs e)
         {
+            var student = user as Student;
+            if (student == null)
+            {
+                MessageBox.Show("Only students can apply for rooms.");
+                return;
+            }
+
             var appForm = new ApplicationForm(service, student);
             appForm.Show();
-            this.Hide(); // om du vill gömma MainForm under tiden
+            this.Hide();
         }
-
 
         private void btnApplications_Click(object sender, EventArgs e)
         {
+            var student = user as Student;
+            if (student == null)
+            {
+                MessageBox.Show("Only students can view their applications.");
+                return;
+            }
+
             var myForm = new MyApplicationsForm(service, student);
             myForm.Show();
             this.Hide();
         }
-
-
     }
 }

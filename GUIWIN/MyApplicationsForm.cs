@@ -8,23 +8,23 @@ namespace GUIWIN
     public partial class MyApplicationsForm : Form
     {
         private HousingService service;
-        private Student student;
+        private User loggedUser;
 
-        public MyApplicationsForm(HousingService service, Student student)
+        public MyApplicationsForm(HousingService service, User user)
         {
             InitializeComponent();
             this.service = service;
-            this.student = student;
+            this.loggedUser = user;
         }
 
         private void MyApplicationsForm_Load(object sender, EventArgs e)
         {
-            dgvApps.DataSource = service.GetApplications(student.Id);
+            dgvApps.DataSource = service.GetApplications(loggedUser.Id);
         }
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            var main = new MainForm(service, student);
+            var main = new MainForm(service, loggedUser);
             main.Show();
             this.Hide();
         }

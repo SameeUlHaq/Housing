@@ -16,36 +16,35 @@ namespace GUIWIN
 
         private void btnRegister_Click(object sender, EventArgs e)
         {
-            var username = txtUsername.Text.Trim();
-            var password = txtPassword.Text.Trim();
+            string username = txtUsername.Text.Trim();
+            string password = txtPassword.Text.Trim();
 
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            if (username == "" || password == "")
             {
-                MessageBox.Show("Please enter both username and password.");
+                MessageBox.Show("Enter username and password.");
                 return;
             }
 
-            var created = service.Register(username, password);
+            bool success = service.Register(username, password);
 
-            if (!created)
+            if (!success)
             {
-                MessageBox.Show("Username is already taken.");
+                MessageBox.Show("Username already exists!");
                 return;
             }
 
-            MessageBox.Show("Account created successfully!");
+            MessageBox.Show("Account created! Now log in.");
 
-            // back to login
-            var login = new LoginForm(service);
+            var loginForm = new LoginForm(service);
+            loginForm.Show();
             this.Hide();
-            login.Show();
         }
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            var login = new LoginForm(service);
+            var loginForm = new LoginForm(service);
+            loginForm.Show();
             this.Hide();
-            login.Show();
         }
     }
 }

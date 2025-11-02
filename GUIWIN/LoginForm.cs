@@ -24,21 +24,21 @@ namespace GUIWIN
 
             if (user == null)
             {
-                MessageBox.Show("Wrong username or password.");
+                MessageBox.Show("Wrong username or password!");
                 return;
             }
 
-            // open MainForm
+            // open main form
             var main = new MainForm(service, user);
-            this.Hide();
             main.Show();
+            this.Hide();
         }
 
         private void btnRegister_Click(object sender, EventArgs e)
         {
             var reg = new RegisterForm(service);
-            this.Hide();
             reg.Show();
+            this.Hide();
         }
     }
 }

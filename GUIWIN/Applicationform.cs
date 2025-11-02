@@ -19,7 +19,6 @@ namespace GUIWIN
 
         private void ApplicationForm_Load(object sender, EventArgs e)
         {
-            // load available rooms
             dgvRooms.DataSource = service.GetAvailableRooms();
         }
 
@@ -44,8 +43,6 @@ namespace GUIWIN
             if (success)
             {
                 MessageBox.Show("Application sent!");
-
-                // refresh room list
                 dgvRooms.DataSource = service.GetAvailableRooms();
             }
             else
@@ -53,5 +50,13 @@ namespace GUIWIN
                 MessageBox.Show("Room is not available.");
             }
         }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            var main = new MainForm(service, loggedStudent);
+            main.Show();
+            this.Hide();
+        }
+
     }
 }

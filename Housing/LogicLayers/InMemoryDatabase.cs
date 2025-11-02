@@ -17,12 +17,7 @@ namespace Housing.LogicLayers
 
             Rooms.Add(new Room(1, "101", RoomType.Single, RoomStatus.Available, buildingA));
             Rooms.Add(new Room(2, "102", RoomType.Shared, RoomStatus.Available, buildingA));
-            Rooms.Add(new Room(3, "201", RoomType.Single, RoomStatus.Occupied, buildingB));
-
-            Students.Add(new Student(1, "Alice", "alice@mail.com", "1234"));
-            Students.Add(new Student(2, "Bob", "bob@mail.com", "1234"));
-
-            Admins.Add(new Admin(1, "Charlie", "admin@mail.com", "admin"));
+            Rooms.Add(new Room(3, "201", RoomType.Single, RoomStatus.Available, buildingB));
         }
     }
 }
