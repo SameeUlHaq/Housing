@@ -21,3 +21,6 @@ namespace Housing.LogicLayers
         }
     }
 }
+// This is an in-memory database used only while the program is running.
+// It simulates a real database by storing data in lists (Students, Rooms, Applications).
+// When the application closes, everything resets. Useful for testing logic without SQL/database setup.
