@@ -8,13 +8,15 @@ namespace GUIWIN
     public partial class ApplicationForm : Form
     {
         private HousingService service;
-        private Student loggedStudent;
+        private Student? loggedStudent;
+        private Admin? loggedAdmin;
 
-        public ApplicationForm(HousingService service, Student student)
+        public ApplicationForm(HousingService service, User user)
         {
             InitializeComponent();
             this.service = service;
-            this.loggedStudent = student;
+            this.loggedStudent = user as Student;
+            this.loggedAdmin = user as Admin;
         }
 
         private void ApplicationForm_Load(object sender, EventArgs e)
@@ -24,6 +26,13 @@ namespace GUIWIN
 
         private void btnApply_Click(object sender, EventArgs e)
         {
+            // ADMIN CAN'T APPLY
+            if (loggedAdmin != null)
+            {
+                MessageBox.Show("Only students can apply for rooms.");
+                return;
+            }
+
             if (dgvRooms.CurrentRow == null)
             {
                 MessageBox.Show("Please select a room first.");
@@ -38,7 +47,7 @@ namespace GUIWIN
                 return;
             }
 
-            bool success = service.ApplyForRoom(loggedStudent.Id, room.Id);
+            bool success = service.ApplyForRoom(loggedStudent!.Id, room.Id);
 
             if (success)
             {
@@ -53,10 +62,18 @@ namespace GUIWIN
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            var main = new MainForm(service, loggedStudent);
-            main.Show();
-            this.Hide();
+            if (loggedAdmin != null)
+            {
+                var adminForm = new AdminMainForm(service, loggedAdmin);
+                adminForm.Show();
+                this.Hide();
+            }
+            else
+            {
+                var main = new MainForm(service, loggedStudent!);
+                main.Show();
+                this.Hide();
+            }
         }
-
     }
 }

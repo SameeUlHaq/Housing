@@ -2,15 +2,8 @@
 {
     partial class ApplicationForm
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,14 +15,11 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             dgvRooms = new DataGridView();
             btnApply = new Button();
+            btnBack = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvRooms).BeginInit();
             SuspendLayout();
             // 
@@ -55,21 +45,22 @@
             btnApply.Click += btnApply_Click;
             // 
             // btnBack
-            btnBack = new Button();
+            // 
             btnBack.Location = new Point(50, 262);
+            btnBack.Margin = new Padding(3, 2, 3, 2);
             btnBack.Name = "btnBack";
             btnBack.Size = new Size(75, 26);
+            btnBack.TabIndex = 2;
             btnBack.Text = "Back";
             btnBack.UseVisualStyleBackColor = true;
-            btnBack.Click += btnBack_Click;
-
-            this.Controls.Add(btnBack);
-
+            btnBack.Click += btnBack_Click;      // ← THIS IS THE CORRECT POSITION
+            // 
             // ApplicationForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(534, 308);
+            Controls.Add(btnBack);
             Controls.Add(btnApply);
             Controls.Add(dgvRooms);
             Margin = new Padding(3, 2, 3, 2);
@@ -86,6 +77,5 @@
         private System.Windows.Forms.DataGridView dgvRooms;
         private System.Windows.Forms.Button btnApply;
         private System.Windows.Forms.Button btnBack;
-
     }
 }

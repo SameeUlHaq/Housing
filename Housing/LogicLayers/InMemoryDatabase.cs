@@ -15,6 +15,10 @@ namespace Housing.LogicLayers
             var buildingA = new Building(1, "Alpha Hall", "North Campus");
             var buildingB = new Building(2, "Beta Hall", "South Campus");
 
+
+            Admins.Add(new Admin(1, "System Admin", "admin", "admin"));
+
+
             Rooms.Add(new Room(1, "101", RoomType.Single, RoomStatus.Available, buildingA));
             Rooms.Add(new Room(2, "102", RoomType.Shared, RoomStatus.Available, buildingA));
             Rooms.Add(new Room(3, "201", RoomType.Single, RoomStatus.Available, buildingB));

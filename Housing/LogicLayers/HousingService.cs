@@ -9,9 +9,10 @@ namespace Housing.LogicLayers
         private readonly InMemoryDatabase db = new();
         private int nextApplicationId = 1;
 
+        // STUDENT FUNCTION =========================================
+
         public List<Room> GetAvailableRooms() =>
             db.Rooms.Where(r => r.IsAvailable()).ToList();
-
 
         public bool ApplyForRoom(int studentId, int roomId)
         {
@@ -33,9 +34,45 @@ namespace Housing.LogicLayers
             db.Applications.Where(a => a.Student.Id == studentId).ToList();
 
 
-        // ======================================================
-        //  LOGIN + REGISTER
-        // ======================================================
+        // ADMIN FUNCTIONS ==========================================
+
+        public List<Room> GetAllRooms() => db.Rooms.ToList();
+
+        public bool CreateRoom(string number, RoomType type, RoomStatus status, Building building)
+        {
+            int newId = db.Rooms.Count + 1;
+            var room = new Room(newId, number, type, status, building);
+            db.Rooms.Add(room);
+            return true;
+        }
+
+        public bool UpdateRoom(int roomId, string number, RoomType type, RoomStatus status, Building building)
+        {
+            var room = db.Rooms.FirstOrDefault(r => r.Id == roomId);
+            if (room == null) return false;
+
+            room.Number = number;
+            room.Type = type;
+            room.Status = status;
+            room.Building = building;
+
+            return true;
+        }
+
+        public bool DeleteRoom(int roomId)
+        {
+            var room = db.Rooms.FirstOrDefault(r => r.Id == roomId);
+            if (room == null) return false;
+
+            db.Rooms.Remove(room);
+            return true;
+        }
+
+        public Admin GetAdmin() => db.Admins.FirstOrDefault();
+
+
+        // LOGIN + REGISTER ==========================================
+
         public User Login(string username, string password)
         {
             var student = db.Students
@@ -47,18 +84,15 @@ namespace Housing.LogicLayers
             var admin = db.Admins
                 .FirstOrDefault(a => a.Username == username && a.Password == password);
 
-            return admin; // can be null → login fail
+            return admin; // null betyder login fail
         }
-
 
         public bool Register(string username, string password)
         {
-            // don't allow duplicates
             if (db.Students.Any(s => s.Username == username) ||
                 db.Admins.Any(a => a.Username == username))
                 return false;
 
-            // create new student
             db.Students.Add(
                 new Student(
                     db.Students.Count + 1,

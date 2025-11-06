@@ -28,7 +28,16 @@ namespace GUIWIN
                 return;
             }
 
-            // open main form
+            // Admin?
+            if (user is Admin admin)
+            {
+                var adminMain = new AdminMainForm(service, admin);
+                adminMain.Show();
+                this.Hide();
+                return;
+            }
+
+            // Student
             var main = new MainForm(service, user);
             main.Show();
             this.Hide();
